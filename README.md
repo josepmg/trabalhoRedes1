@@ -22,10 +22,10 @@ git clone https://github.com/josepmg/trabalhoRedes1.git
 ```
 ### Estrutura
 -main
- -cliente.py: arquivo do programa cliente;
- -servidor.py: arquivo do programa servidor;
- -utils.py: arquivo contendo funções diversas;
+  -cliente.py
+ -servidor.py
+ -utils.py
 -model
- -jogador.py: classe que tem atributos e métodos dos jogadores, como identificador, pontuação, socket TCP e endereço;
- -partida.py: classe que tem atributos e métodos das partidas, como número de jogadores, uma instância de tabuleiro e uma lista de jogadores;
- -tabuleiro.py: classe que tem atributos e métodos dos tabuleiros, como dimensão, número de peças, número de pares, pares descobertos, um array com os valores das posções e outro array de apresentação.
+ -jogador.py
+ -partida.py
+ -tabuleiro.py
