@@ -37,14 +37,14 @@ Alguns métodos serão citados e explicados mais adiante.
 ### Executando os arquivos
 Primeiro, deve-se executar o arquivo servidor pelo comando:
 ```bash
-py servidor.py [NUMERO_JOGADORES] [DIMENSÃO_TABULEIRO]
+$ py servidor.py [NUMERO_JOGADORES] [DIMENSÃO_TABULEIRO]
 ```
 O programa servidor utiliza a porta 12000. Caso queira trocá-la, a linha 13 deve ser alterada.
 Além disso, o programa servidor mostra um "gabarito" com os valores de cada peça.
 
 Após, os clientes são executados pelo comando: 
 ```bash
-py cliente.py [IP_SERVIDOR] [PORTA_SOCKET_SERVIDOR]
+$ py cliente.py [IP_SERVIDOR] [PORTA_SOCKET_SERVIDOR]
 ```
 
 Agora é só aproveitar o jogo!
