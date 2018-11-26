@@ -10,3 +10,13 @@ Trabalho semestral apresentado para a disciplina Redes de Computadores 1 para Si
 
 **Professor:** Diego Gimenez Passos
 
+**Alunos:** Giovane Lopes da Silva e José Paulo de Mello Gomes
+
+## Utilização
+### Preparação do ambiente
+Este projeto foi desenvolvido em Python 3.7.0. Portanto, faz-se necessário instalação desta ou superiores versões.
+### Baixando repositório
+```bash
+git init
+git clone https://github.com/josepmg/trabalhoRedes1.git
+```
