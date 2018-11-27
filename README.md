@@ -74,7 +74,7 @@ Possui dois métodos: um para limpar a tela e outro para apresentar o tabuleiro 
 
 #### Partida
 Como dito previamente, é a classe referente a uma partida. Possui, como atributos, o úmero de jogaores, uma instância de Tabuleiro e um vetor de jogadores.
-##### Método  _getters_
+##### Métodos  _getters_
 Funções para recuperarem o valor dos atributos do objeto
 ##### Método _addPlayer(self, ident, socket, address)_
 Adiociona um novo jogador ao vetor de jogadores
