@@ -97,3 +97,112 @@ Caso seja um valor válido, "esconde" a peça (display nas coordenadas = '?'), p
 ##### Método _removePiece(self, i, j)_
 Remove uma peça do tabuleiro de display. Caso ela já tenhaa sido removida, retorna _false_. Se não, retira a peça e retornan _true_, indicando o sucesso da operação.
 
+## Fluxograma - Servidor
+1. Cria _socket_ TCP para receber conexões de clientes
+2. Inicia-se um laço de repetição (Enquanto o servidor ainda quisere hospedar partidas)
+    1. Instancia um objeto da classe Partida, informando o número de jogadores e a dimensão do tabuleiro
+    2. Apresenta tabuleiro de valor no servidor
+    3. Laço de repetição para aguardar a conexão de todos clientes
+       1. Socket do servidor aceita conexão, criando um socket de conexão com o cliente e gaurda seu enderço (IP e porta)
+       2. Um novo jogador é adicionado a partida, informando seu identificador, socket de conexão e endereço
+       3. Envia identificador para cliente 
+    4. Inicia a partida (laço de repetição enquanto ainda houverem peças a serem descobertas)
+       - Enquanto for a vez do jogador atual (laço de repetição)
+          1. Envia tabuleiro atualizado e pontuação dos jogadores
+          2. Envia jogador da vez para todos clientes
+          3. Laço para receber as coordenadas da **primeira** peça (caso o jogador envie coordenadas inválidas):
+             1. Recebe a mensagem do cliente
+             2. Consulta valor da peça
+             3. Envia valor da peça
+          4. Laço para receber as coordenadas da **segunda** peça (caso o jogador envie coordenadas inválidas):
+             1. Recebe a mensagem do cliente
+             2. Consulta valor da peça
+             3. Envia valor da peça
+          5. Verifica se jogador pontuou (caso valores da speças sejam iguais e válidas)
+             - Caso pontuou
+               1. Incremente placar do jogador
+               2. Remove peças
+               3. Apresenta tabuleiro no servidor
+               4. Caso não haja pares a serem descobertos, encerra laço do tópico 2.IV
+             - Caso não pontuou
+               1. Esconde valor das peças
+               2. Verifica pares descobertos
+                  - Caso todos pares foram descobertos, envia "-1" como jogador da vez, indicando aos clientes que a partida acabou
+                  - Caso contrário, muda o jogador da vez
+               3. Encerra laço 2.IV
+    5. Envia tabuleiro atualizado e pontuação dos jogadores
+    6. Envia "-1" como jogador da vez para clientes, indicando que partida acabou
+    7. Envia vencedor, caso haja, para clientes. Caso haja empate, não haverá vencedor (código "-1")
+    8. laço de repetição para encerrar conexão com clientes
+    9. Pergunta se deseja iniciar nova partida
+       - Caso **queira**, volta ao laço do tópico 2
+       - Caso **não** queira, encerra programa
+
+## Fluxograma - Cliente
+1. Cria um _socket_ de conexão utilizando o IP e porta do servidor
+2. Recebe identificador do servidor
+3. Inicia-se a partida (Laço de repetição enquanto jogador da vez for diferente de "-1")
+   1. Recebe tabuleiro de display do servidor e o converte em um array utilizando o _pickle_
+   2. Recebe a dimensão do tabuleiro do servidor
+   3. Recebe o placar do servidor
+   4. Recebe o jogador da vez do servidor
+   5. Verifica se o jogador da vez
+      - Caso seja diferente de "-1", continua no laço
+      - Caso seja igual a "-1", vai para tópico 4
+   6. Apresenta tabuleiro e placar
+   7. Pedindo **primeira** peça
+      - Caso o cliente seja o jogador da vez
+        1. Solicita coordenadas
+        2. Solicita coordenadas enqualto elaas forem inválidas (fora da dimensão do tabuleiro ou fora do padrão de _input_)
+        3. Envia coordenadas para servidor
+      - Caso o cliente não seja o jogador da vez
+        1. Informa quem é o jogador da vez
+   8. Clientes recebem valor da peça e coordenadas dela
+   9. Verifica validade da peça
+      - Se valor for inválido (igual a 0)
+        - Pede novas coordenadas para jogador da vez 
+        - Informa que jogador da vez esoclheu uma peça inválida para demais clientes
+      - Caso contrário, atualiza tabuleiro de display com valor da peça e o apresenta
+   10. Pedindo **segunda** peça
+      - Caso o cliente seja o jogador da vez
+        1. Solicita coordenadas
+        2. Solicita coordenadas enqualto elaas forem inválidas (fora da dimensão do tabuleiro ou fora do padrão de _input_)
+        3. Envia coordenadas para servidor
+      - Caso o cliente não seja o jogador da vez
+        1. Informa quem é o jogador da vez
+   11. Clientes recebem valor da peça e coordenadas dela
+   12. Verifica validade da peça
+      - Se valor for inválido (igual a 0)
+        - Pede novas coordenadas para jogador da vez 
+        - Informa que jogador da vez esoclheu uma peça inválida para demais clientes
+      - Caso contrário, atualiza tabuleiro de display com valor da peça e o apresenta
+   13. Apresenta as peças escolhidas e informa se jogador pontuou ou não
+4. Apresenta placar
+5. Informa que o jogo acabou
+6. Recebe jogador vencedor
+   - Se valor recebido for "-1", houve um empate e, portanto, não houve vencedor
+   - Se for diferente, informa o jogador vencedor
+7. Encerra conexão
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
